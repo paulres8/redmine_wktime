@@ -20,12 +20,12 @@ if params[:enter_issue_id].blank?
 	projects.unshift( [ entry.project.name, entry.project_id ] ) if !entry.nil? && project.blank?
 %>
 <% if controller.showProjectDD %>
-	<td class="issue" align="left" width="150px">
+	<td class="issue" align="left" width="180px">
 		<% project_name = entry.nil? ? (@logtime_projects.blank? ? 0 : @logtime_projects[0].id) : entry.project.name %>
 		<% if @editable %>
 			<%=h select_tag(isTemplate ? '__template__time_entry[][project_id]' : 'time_entry[][project_id]',
 			options_for_select(projects, :selected =>  project_id),
-			:onchange => "projectChanged(this,#{@row.to_s()});", :style=> "width:150px" ) %>
+			:onchange => "projectChanged(this,#{@row.to_s()});", :style=> "width:180px" ) %>
 		<% else %>
 			<% if project.blank? %>
 				<% if entry.nil? %>
@@ -80,11 +80,11 @@ if params[:enter_issue_id].blank?
 		end
 	end
 	%>
-	<td class="issue" align="left" width="250px">
+	<td class="issue" align="left" width="300px">
 		<% if @editable %>
 			<%=h select_tag(isTemplate ? '__template__time_entry[][issue_id]' : 'time_entry[][issue_id]',
 			options_for_select(issues, :selected =>  entry.nil? ? (Setting.plugin_redmine_wktime['wktime_holiday'].present? ? Setting.plugin_redmine_wktime['wktime_holiday'] : 0 ) : entry.issue_id, :required => true), class: 'issueDD',
-			:style=> "width:250px;" ) %>
+			:style=> "width:300px;" ) %>
 		<% else %>
 			<%=  entry.issue.tracker.to_s() +  " #" + entry.issue.id.to_s() + ": " + entry.issue.subject if !entry.nil? && !entry.issue.nil? %>
 		<% end %>
@@ -117,11 +117,11 @@ if params[:enter_issue_id].blank?
 	end
 %>
 <% if controller.showActivityDD %>
-	<td class="issue" align="left" width="75px">
+	<td class="issue" align="left" width="100px">
 	<% if @editable %>
 		<%=h select_tag(isTemplate ? '__template__time_entry[][activity_id]' : 'time_entry[][activity_id]',
 		activities.blank? ? nil : options_for_select(activities, :selected => entry.nil? ? defActivity : entry.activity_id),
-		:style=> "width:75px" ) %>
+		:style=> "width:100px" ) %>
 	<% else %>
 		<%= activity.blank? ? entry.activity_id : activity.name unless entry.nil?%>
 	<% end %>
@@ -155,11 +155,11 @@ if params[:enter_issue_id].blank?
 	end
 %>
 <% if showBilling && controller.showSpentFor %>
-	<td class="issue" align="left" width="150px">
+	<td class="issue" align="left" width="180px">
 	<% if @editable %>
 		<%=h select_tag(isTemplate ? '__template__time_entry[][spent_for_attributes][spent_for_key]' : 'time_entry[][spent_for_attributes][spent_for_key]',
 		billableProjects.blank? ? nil : options_for_select(billableProjects, :selected => spent_for_key),
-		:style=> "width:150px" ) %>
+		:style=> "width:180px" ) %>
 	<% else %>
 		<%= billableProject.parent.name unless billableProject.nil?%>
 	<% end %>
@@ -189,7 +189,7 @@ if params[:enter_issue_id].blank?
 <%= render :partial => controller.getCFInRowHTML , :locals => {:entry => entry, :isTemplate => false }%>
 
 <% if @renderer.showSpentOnInRow %>
-		<td class="issue" align="left" width="250px">
+		<td class="issue" align="left" width="300px">
 		<% if @editable %>
 			<% if controller.showSpentFor %>
 				<%=h date_field_tag(isTemplate ? '__template__time_entry[][spent_for_attributes][spent_on_time]' : 'time_entry[][spent_for_attributes][spent_on_time]', entry.blank? || entry.spent_on.blank? ? @selectedDate : entry.spent_on)  %>

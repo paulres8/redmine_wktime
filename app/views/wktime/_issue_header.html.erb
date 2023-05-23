@@ -1,11 +1,11 @@
 <% if params[:enter_issue_id].blank? && controller.showProjectDD %>
-	<th align="left" width="150px" ><%= l(:field_project) %></th>
+	<th align="left" width="180px" ><%= l(:field_project) %></th>
 <% else %>
 	<th align="left"></th>
 <% end %>
-<th align="left" width="250px"><%= controller.getLblIssue %></th>
+<th align="left" width="300px"><%= controller.getLblIssue %></th>
 <% if controller.showActivityDD %>
-<th align="left" width="75px" ><%= l(:field_activity) %></th>
+<th align="left" width="100px" ><%= l(:field_activity) %></th>
 <% else %>
 	<th align="left"></th>
 <% end %>
@@ -30,7 +30,7 @@
 <% else %>
 	<% for i in 0.. @renderer.getDaysPerSheet - 1%>
 	<!-- Martin Dube contribution: 'start of the week' configuration -->
-	<th align="center" width="6px"><%= l('date.abbr_day_names')[(i+(startOfWeek))%7] %><br /><%= I18n.localize(@startday+i, :format=>:short) unless @startday.nil? %></th>
+	<th align="center" width="12px"><%= l('date.abbr_day_names')[(i+(startOfWeek))%7] %><br /><%= I18n.localize(@startday+i, :format=>:short) unless @startday.nil? %></th>
 	<% end %>
 	
 <% end %>
