@@ -123,45 +123,46 @@ Import.class_eval do
 	end
 end
 
+## HACK: this conflicts with another plugin - side effect is the wk-time page no longer shows custom menu items
 # redmine only differs between project_menu and application_menu! but we want to display the
 # time_tracker submenu only if the plugin specific controllers are called
-module Redmine::MenuManager::MenuHelper
-  def display_main_menu?(project)
-    Redmine::MenuManager.items(menu_name(project)).children.present?
-  end
+# module Redmine::MenuManager::MenuHelper
+  # def display_main_menu?(project)
+    # Redmine::MenuManager.items(menu_name(project)).children.present?
+  # end
 
-  def render_main_menu(project)
-    if menu_name = controller.current_menu(project)
-        render_menu(menu_name(project), project)
-    end
-  end
+  # def render_main_menu(project)
+    # if menu_name = controller.current_menu(project)
+        # render_menu(menu_name(project), project)
+    # end
+  # end
 
-  private
+  # private
 
-  def menu_name(project)
-    if project && !project.new_record?
-      :project_menu
-    else
-	  controllerArr = [
-			"wktime", "wkexpense", "wkattendance", "wkreport", "wkpayroll",  "wkinvoice", "wkcrmaccount", "wkcontract", "wkaccountproject", "wktax", "wkgltransaction",
-			"wkledger", "wklead", "wkopportunity", "wkcrmactivity", "wkcrmcontact", "wkcrmenumeration", "wkpayment", "wkexchangerate","wkrfq","wkquote",
-			"wkpurchaseorder","wksupplierinvoice","wksupplierpayment","wksupplieraccount","wksuppliercontact", "wklocation", "wkproduct", "wkbrand", "wkattributegroup",
-			"wkproductitem", "wkshipment", "wkunitofmeasurement", "wkasset", "wkassetdepreciation", "wkgrouppermission", "wkscheduling", "wkshift", "wkpublicholiday",
-			"wkdashboard", "wksurvey", "wkleaverequest", "wkdocument", "wknotification", "wkskill", "wkreferrals", "wkdelivery"
-		]
-	  externalMenus = call_hook :external_erpmine_menus
-	   externalMenus = externalMenus.split(' ')
-	  unless externalMenus.blank?
-		controllerArr = controllerArr + externalMenus
-	  end
-      if controllerArr.include? params[:controller]
-        :wktime_menu
-      else
-        :application_menu
-      end
-    end
-  end
-end
+  # def menu_name(project)
+    # if project && !project.new_record?
+      # :project_menu
+    # else
+	  # controllerArr = [
+			# "wktime", "wkexpense", "wkattendance", "wkreport", "wkpayroll",  "wkinvoice", "wkcrmaccount", "wkcontract", "wkaccountproject", "wktax", "wkgltransaction",
+			# "wkledger", "wklead", "wkopportunity", "wkcrmactivity", "wkcrmcontact", "wkcrmenumeration", "wkpayment", "wkexchangerate","wkrfq","wkquote",
+			# "wkpurchaseorder","wksupplierinvoice","wksupplierpayment","wksupplieraccount","wksuppliercontact", "wklocation", "wkproduct", "wkbrand", "wkattributegroup",
+			# "wkproductitem", "wkshipment", "wkunitofmeasurement", "wkasset", "wkassetdepreciation", "wkgrouppermission", "wkscheduling", "wkshift", "wkpublicholiday",
+			# "wkdashboard", "wksurvey", "wkleaverequest", "wkdocument", "wknotification", "wkskill", "wkreferrals", "wkdelivery"
+		# ]
+	  # externalMenus = call_hook :external_erpmine_menus
+	   # externalMenus = externalMenus.split(' ')
+	  # unless externalMenus.blank?
+		# controllerArr = controllerArr + externalMenus
+	  # end
+      # if controllerArr.include? params[:controller]
+        # :wktime_menu
+      # else
+        # :application_menu
+      # end
+    # end
+  # end
+# end
 
 module WktimeHelperPatch
 	def self.included(base)
